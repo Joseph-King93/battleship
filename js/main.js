@@ -12,7 +12,9 @@
 
 // createBoard(12, 12);
 const smallShip = 2
-const medShip = 5
+const medShip = 3
+const largeShip = 4
+const superMegaShip = 100
 
 let tiles = document.getElementsByClassName("allTile")
 
@@ -49,6 +51,24 @@ function verticalSelectLogic(tileBeingTested) {
     }
 }
 
+// This function tests space to the left and right of randomly selected tile
+function horizontalSelectLogic(tileBeingTested) {
+    // Test if randomly selected tile is the last tile in row or not 
+    if (tileBeingTested % Math.sqrt(tileArray.length) === (Math.sqrt(tileArray.length) - 1)) {
+        let newTileFromeHorizLogic = tileBeingTested - 1;
+        // make tile turn grey
+        tiles[newTileFromeHorizLogic].style["background-color"] = "grey";
+        console.log(newTileFromeHorizLogic)
+        return tiles[newTileFromeHorizLogic]
+    } else {
+        let newTileFromHorizLogic = tileBeingTested + 1;
+        // make tile turn grey
+        tiles[newTileFromHorizLogic].style["background-color"] = "grey";
+        console.log(newTileFromHorizLogic)
+        return tiles[newTileFromHorizLogic]
+    }
+}
+
 function randomGrey() {
     for(let i=0; i<tiles.length; i++) { 
         tileArray.push(i)
@@ -57,7 +77,7 @@ function randomGrey() {
     // randomTileSelect chooses random tile from grid
     let randomTileSelect = getRandomIntInclusive(0, tileArray.length - 1)
     console.log(randomTileSelect)
-    let random1 = verticalSelectLogic(randomTileSelect)
+    let random1 = horizontalSelectLogic(randomTileSelect)
     tiles[randomTileSelect].style["background-color"] = "grey";
 }
 

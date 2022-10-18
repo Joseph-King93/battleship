@@ -11,6 +11,8 @@
 // };
 
 // createBoard(12, 12);
+const smallShip = 2
+const medShip = 5
 
 let tiles = document.getElementsByClassName("allTile")
 
@@ -27,14 +29,36 @@ for(let i=0;i<tiles.length;i++) {
 }
 
 let tileArray = []
+
+// This function tests space above and below randomly selected tile
+function verticalSelectLogic(tileBeingTested) {
+    // Math.sqrt(tileArray.length) gives tile 
+    // above or below a **SQUARE ONLY** grid (1x1,2x2,3x3,...)
+    if (tileBeingTested + Math.sqrt(tileArray.length) >= tileArray.length) {
+        let newTileFromeVertLogic = tileBeingTested - Math.sqrt(tileArray.length);
+        // make tile turn grey
+        tiles[newTileFromeVertLogic].style["background-color"] = "grey";
+        console.log(newTileFromeVertLogic)
+        return tiles[newTileFromeVertLogic]
+    } else {
+        let newTileFromVertLogic = tileBeingTested + Math.sqrt(tileArray.length);
+        // make tile turn grey
+        tiles[newTileFromVertLogic].style["background-color"] = "grey";
+        console.log(newTileFromVertLogic)
+        return tiles[newTileFromVertLogic]
+    }
+}
+
 function randomGrey() {
     for(let i=0; i<tiles.length; i++) { 
         tileArray.push(i)
         console.log(tileArray)
     }
-    let randomSelect = getRandomIntInclusive(0, tileArray.length - 1)
-    console.log(randomSelect)
-    tiles[randomSelect].style["background-color"] = "grey";
+    // randomTileSelect chooses random tile from grid
+    let randomTileSelect = getRandomIntInclusive(0, tileArray.length - 1)
+    console.log(randomTileSelect)
+    let random1 = verticalSelectLogic(randomTileSelect)
+    tiles[randomTileSelect].style["background-color"] = "grey";
 }
 
 randomGrey()

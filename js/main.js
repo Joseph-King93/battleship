@@ -67,11 +67,10 @@ function horizontalSelectLogic(tileBeingTested) {
         let newTileFromHorizLogic = tileBeingTested + 1;
         // make tile turn grey
         tiles[newTileFromHorizLogic].style["background-color"] = "purple";
-        console.log(newTileFromHorizLogic + " tile checked horiz")
+        console.log(newTileFromHorizLogic + " tile checked by horiz")
         return tiles[newTileFromHorizLogic]
     }
 }
-
 
 function randomGrey() {
     for(let i = 0; i < tiles.length; i++) { 
@@ -89,17 +88,18 @@ function randomGrey() {
 let newRandom = randomGrey()
 console.log(newRandom)
 
-placeShipBySize(4, 3)
+placeShipBySize(3, 10)
 
 function placeShipBySize(shipSize, originalTileBeingTested) {
-
+    console.log(originalTileBeingTested + " = origTile")
     let tileBeingTested = originalTileBeingTested
     let shipArray = []
     tiles[originalTileBeingTested].style["background-color"] = "yellow";
-    
+
     for(let i = 0; i < (shipSize - 1); i++) {
         console.log(i + "# loop")
         console.log(tileBeingTested + " start tile")
+        console.log(originalTileBeingTested + " = origTileInLoop")
 
         shipArray.push(horizontalSelectLogic(tileBeingTested))
 
@@ -110,10 +110,14 @@ function placeShipBySize(shipSize, originalTileBeingTested) {
         console.log(shipArray.includes(undefined))
 
         if (shipArray.includes(undefined)) {
-            console.log(tileBeingTested + " tileBeingTested") 
+            // console.log(tileBeingTested + " tileBeingTestedInsideLoop") 
+            console.log(originalTileBeingTested + " = origTileInIf")
             shipArray.pop()           
             console.log(shipArray)
             shipArray.push(horizontalSelectLogic(originalTileBeingTested - 2))
+            console.log(shipArray)
+            tileBeingTested = tileBeingTested - 1
+            originalTileBeingTested = originalTileBeingTested - 1
             
             // shipArray.push(horizontalSelectLogic(tileBeingTested))
         }

@@ -20,7 +20,7 @@ let tiles = document.getElementsByClassName("allTile")
 
 let tileArray = []
 let newRandom = null
-for(let i = 0; i < tiles.length; i++) { 
+for (let i = 0; i < tiles.length; i++) {
     tileArray.push(i)
 }
 
@@ -30,8 +30,8 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-for(let i=0; i < tiles.length; i++) { 
-    tiles[i].addEventListener("click", function() {
+for (let i = 0; i < tiles.length; i++) {
+    tiles[i].addEventListener("click", function () {
         tiles[i].style["background-color"] = "red";
     });
 }
@@ -39,68 +39,6 @@ tiles[4].style["background-color"] = "yellow";
 tiles[17].style["background-color"] = "purple";
 console.log(tiles)
 console.log(tileArray)
-
-
-
-
-
-
-function placeAllShipsForBot(array) {
-    for (i = 0; i < array.length; i++) {
-    let newRandom = randomGrey()
-    console.log(newRandom + " is new random val")
-    if (getRandomIntInclusive(0, 1) === 0) {
-        console.log("Horizontal Ship")
-        placeHorizontalShipBySize(array[i], newRandom)
-    } else {
-        console.log("Vertical Ship")
-        placeVerticalShipBySize(array[i], newRandom)
-    }
-    }
-}
-
-// placeAllShipsForBot(shipSizes)
-
-// This function tests space above and below randomly selected tile
-function verticalSelectLogic(tileBeingTested) {
-    // console.log(tileBeingTested + " start tile test vert logic")
-    // Math.sqrt(tileArray.length) gives tile 
-    // above or below a **SQUARE ONLY** grid (1x1,2x2,3x3,...)
-    // for(let i = 0, i <= shipSize; i++) {
-    if (tileBeingTested + Math.sqrt(tileArray.length) >= tileArray.length) {
-            let newTileFromeVertLogic = tileBeingTested - Math.sqrt(tileArray.length);
-            // make tile turn grey
-            // tiles[newTileFromeVertLogic].style["background-color"] = "grey";
-            console.log(newTileFromeVertLogic)
-            return undefined
-    } else {
-        let newTileFromVertLogic = tileBeingTested + Math.sqrt(tileArray.length);
-        // make tile turn grey
-        // tiles[newTileFromVertLogic].style["background-color"] = "purple";
-        // console.log(newTileFromVertLogic + " tested by vert logic")
-        return tiles[newTileFromVertLogic]
-    }
- }
-
-// This function tests space to the left and right of randomly selected tile
-function horizontalSelectLogic(tileBeingTested) {
-    // Test if randomly selected tile is the last tile in row or not 
-    if (tileBeingTested.style["background-color"] === "yellow" || tileBeingTested.style["background-color"] === "purple") {
-        return true
-    } else if (tileBeingTested % Math.sqrt(tileArray.length) === (Math.sqrt(tileArray.length) - 1)) {
-        let newTileFromHorizLogic = tileBeingTested - 1;
-        // make tile turn grey
-        // tiles[newTileFromHorizLogic].style["background-color"] = "pink";
-        console.log(newTileFromHorizLogic)
-        return undefined
-    } else {
-        let newTileFromHorizLogic = tileBeingTested + 1;
-        // make tile turn grey
-        tiles[newTileFromHorizLogic].style["background-color"] = "purple";
-        console.log(newTileFromHorizLogic + " tile checked by horiz")
-        return tiles[newTileFromHorizLogic]
-    }
-}
 
 function randomGrey() {
 
@@ -114,47 +52,143 @@ function randomGrey() {
 
 function makeNewRandom() {
     newRandom = randomGrey()
-    // console.log(newRandom)
+    console.log(newRandom)
     return newRandom
 }
 makeNewRandom()
-// placeHorizontalShipBySize(4, 24)
 
-function placeHorizontalShipBySize(shipSize, originalTileBeingTested) {
-    console.log(originalTileBeingTested + " = origTile")
-    let tileBeingTested = originalTileBeingTested
-    let shipArray = []
-    tiles[originalTileBeingTested].style["background-color"] = "yellow";
 
-    for(let i = 0; i < (shipSize - 1); i++) {
-        console.log(i + "# loop")
-        console.log(tileBeingTested + " start tile")
-        console.log(originalTileBeingTested + " = origTileInLoop")
 
-        shipArray.push(horizontalSelectLogic(tileBeingTested))
 
-        console.log(shipArray)
 
-        tileBeingTested = tileBeingTested + 1
 
-        console.log(shipArray.includes(undefined))
-
-        if (shipArray.includes(undefined)) {
-            // console.log(tileBeingTested + " tileBeingTestedInsideLoop") 
-            console.log(originalTileBeingTested + " = origTileInIf")
-            shipArray.pop()           
-            console.log(shipArray)
-            shipArray.push(horizontalSelectLogic(originalTileBeingTested - 2))
-            console.log(shipArray)
-            tileBeingTested = tileBeingTested - 1
-            originalTileBeingTested = originalTileBeingTested - 1
-            
-            // shipArray.push(horizontalSelectLogic(tileBeingTested))
+// placeAllShipsForBot(shipSizes)
+function placeAllShipsForBot(array) {
+    for (i = 0; i < array.length; i++) {
+        let newRandom = randomGrey()
+        console.log(newRandom + " is new random val")
+        if (getRandomIntInclusive(0, 1) === 0) {
+            console.log("Horizontal Ship")
+            placeHorizontalShipBySize(array[i], newRandom)
+        } else {
+            console.log("Vertical Ship")
+            placeVerticalShipBySize(array[i], newRandom)
         }
     }
 }
 
-(placeVerticalShipBySize(4, 12)) ? console.log("1st option") : console.log("everything worked!")
+
+// This function tests space above and below randomly selected tile
+function verticalSelectLogic(tileBeingTested) {
+    // console.log(tileBeingTested + " start tile test vert logic")
+    // Math.sqrt(tileArray.length) gives tile 
+    // above or below a **SQUARE ONLY** grid (1x1,2x2,3x3,...)
+    // for(let i = 0, i <= shipSize; i++) {
+    if (tileBeingTested + Math.sqrt(tileArray.length) >= tileArray.length) {
+        let newTileFromeVertLogic = tileBeingTested - Math.sqrt(tileArray.length);
+        // make tile turn grey
+        // tiles[newTileFromeVertLogic].style["background-color"] = "grey";
+        console.log(newTileFromeVertLogic)
+        return undefined
+    } else {
+        let newTileFromVertLogic = tileBeingTested + Math.sqrt(tileArray.length);
+        // make tile turn grey
+        // tiles[newTileFromVertLogic].style["background-color"] = "purple";
+        // console.log(newTileFromVertLogic + " tested by vert logic")
+        return tiles[newTileFromVertLogic]
+    }
+}
+
+// This function tests space to the left and right of randomly selected tile
+function horizontalSelectLogic(tileBeingTested) {
+    console.log("horizontalSelectLogicStart")
+    // Test if randomly selected tile is the last tile in row or not 
+    // if (tileBeingTested.style["background-color"] === "yellow" || tileBeingTested.style["background-color"] === "purple") {
+    //     return true
+    // } else 
+    if (tileBeingTested % Math.sqrt(tileArray.length) === (Math.sqrt(tileArray.length) - 1)) {
+        let newTileFromHorizLogic = tileBeingTested - 1;
+        // make tile turn grey
+        // tiles[newTileFromHorizLogic].style["background-color"] = "pink";
+        console.log("came back true, not good")
+        return undefined
+    } else {
+        let newTileFromHorizLogic = tileBeingTested + 1;
+        // make tile turn grey
+        // tiles[newTileFromHorizLogic].style["background-color"] = "purple";
+        // console.log(newTileFromHorizLogic + " tile checked by horiz")
+        console.log("horizontalSelectLogicEnd")
+        return tiles[newTileFromHorizLogic]
+    }
+}
+
+
+// placeHorizontalShipBySize(4, 24)
+(placeHorizontalShipBySize(4, newRandom)) ? placeHorizontalShipBySize(4, makeNewRandom()) : console.log("everything worked!")
+function placeHorizontalShipBySize(shipSize, originalTileBeingTested) {
+    console.log("start of testing")
+    console.log(originalTileBeingTested)
+    let tileBeingTested = originalTileBeingTested
+    if (isTileTakenTest(tileBeingTested) === true) {
+        console.log("this came back true which is bad")
+        return true
+    }
+    console.log("initial shipArray")
+    let shipArray = []
+    console.log(shipArray)
+    shipArray.push(tiles[originalTileBeingTested])
+    console.log(shipArray)
+    console.log("after ship array push")
+
+    for (let i = 0; i < (shipSize - 1); i++) {
+        console.log(i + "# loop")
+        console.log("tileBeingTestedBelow")
+        console.log(tileBeingTested)
+        console.log("orig tile below")
+        console.log(originalTileBeingTested)
+        if (isTileTakenTest(tileBeingTested + 1) === true) {
+            console.log("this came back true which is bad")
+            return true
+        } else {
+            shipArray.push(horizontalSelectLogic(tileBeingTested))
+            tileBeingTested = tileBeingTested + 1
+
+        }
+
+        console.log(shipArray)
+
+        console.log(shipArray.includes(undefined))
+
+        if (shipArray.includes(undefined)) {
+            if (isTileTakenTest(originalTileBeingTested - 1)) {
+                console.log("this came back true also")
+                return true
+            } else {
+                // console.log(tileBeingTested + " tileBeingTestedInsideLoop") 
+                // console.log(originalTileBeingTested + " = origTileInIf")
+                shipArray.pop()
+                console.log(shipArray)
+                shipArray.push(horizontalSelectLogic(originalTileBeingTested - 2))
+                // console.log(shipArray)
+                tileBeingTested = tileBeingTested - 1
+                originalTileBeingTested = originalTileBeingTested - 1
+
+                // shipArray.push(horizontalSelectLogic(tileBeingTested))
+            }
+        }
+    }
+    console.log(shipArray)
+    console.log("before makePlacement")
+    makePlacement(shipArray)
+
+    function makePlacement(array) {
+        for (let i = 0; i < array.length; i++) {
+            shipArray[i].style["background-color"] = "pink";
+        }
+    }
+}
+
+// (placeVerticalShipBySize(4, 12)) ? console.log("1st option") : console.log("everything worked!")
 function placeVerticalShipBySize(shipSize, originalTileBeingTested) {
     console.log(tiles)
     console.log(originalTileBeingTested)
@@ -165,13 +199,13 @@ function placeVerticalShipBySize(shipSize, originalTileBeingTested) {
         return true
     }
     // isTileTakenTest(originalTileBeingTested)
-    
+
     let shipArray = []
     shipArray.push(tiles[originalTileBeingTested])
     console.log("this is shiparraystart")
     console.log(shipArray)
 
-    for(let i = 0; i < (shipSize - 1); i++) {
+    for (let i = 0; i < (shipSize - 1); i++) {
         console.log(i + "# loop")
         console.log(tileBeingTested)
         // console.log(originalTileBeingTested + " = origTileInLoop")
@@ -180,11 +214,11 @@ function placeVerticalShipBySize(shipSize, originalTileBeingTested) {
             console.log("this came back true which is bad")
             return true
         } else {
-            shipArray.push(verticalSelectLogic(tileBeingTested))       
+            shipArray.push(verticalSelectLogic(tileBeingTested))
             tileBeingTested = tileBeingTested + Math.sqrt(tileArray.length)
-            
+
             console.log(shipArray.includes(undefined))
-        }    
+        }
         if (shipArray.includes(undefined)) {
             console.log(originalTileBeingTested)
             console.log(tileBeingTested)
@@ -193,9 +227,9 @@ function placeVerticalShipBySize(shipSize, originalTileBeingTested) {
                 console.log("this came back true also")
                 return true
             } else {
-                shipArray.pop()           
+                shipArray.pop()
                 console.log(shipArray)
-                shipArray.push(verticalSelectLogic(originalTileBeingTested - Math.sqrt(tileArray.length)*2))
+                shipArray.push(verticalSelectLogic(originalTileBeingTested - Math.sqrt(tileArray.length) * 2))
                 console.log(shipArray)
                 // tileBeingTested = tileBeingTested - 1
                 originalTileBeingTested = originalTileBeingTested - Math.sqrt(tileArray.length)
@@ -205,15 +239,15 @@ function placeVerticalShipBySize(shipSize, originalTileBeingTested) {
     }
     console.log(shipArray)
     makePlacement(shipArray)
-    
+
     function makePlacement(array) {
         for (let i = 0; i < array.length; i++) {
             console.log(i)
-            shipArray[i].style["background-color"] = "pink"; 
-            console.log("words also here")       
+            shipArray[i].style["background-color"] = "pink";
+            console.log("words also here")
         }
-    console.log("words are here")
-    console.log(shipArray)
+        console.log("words are here")
+        console.log(shipArray)
     }
     console.log("end of the raod")
 }
@@ -224,16 +258,16 @@ function isTileTakenTest(tileBeingTested) {
     console.log(tileBeingTested)
     console.log(tiles[tileBeingTested])
     // console.log(tiles[tileBeingTested].style.backgroundColor)
-    if (tiles[tileBeingTested] === undefined) { 
-            console.log("Tile is undefined")
-            return undefined
-        } else if (tiles[tileBeingTested].style["background-color"] === "purple") {
+    if (tiles[tileBeingTested] === undefined) {
+        console.log("Tile is undefined")
+        return undefined
+    } else if (tiles[tileBeingTested].style["background-color"] === "purple") {
         // console.log("this spot is taken")
-            return true
-        } else if  (tiles[tileBeingTested].style["background-color"] === "yellow") {
-            console.log("it is yellow")
-            return true
-        } else { console.log("Tile not taken") }
+        return true
+    } else if (tiles[tileBeingTested].style["background-color"] === "yellow") {
+        console.log("it is yellow")
+        return true
+    } else { console.log("Tile not taken") }
 }
 // console.log(tiles[4].style.backgroundColor)
 // isTileTakenTest(4)

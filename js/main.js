@@ -20,12 +20,9 @@ const shipSizes = [smallShip, medShip, largeShip]
 let tiles = document.getElementsByClassName("allTile")
 let playerTiles = document.getElementsByClassName("allPlayerTile")
 let startButton = document.getElementsByClassName("startButton")
-
+let turnCounter = 0
 
 console.log(startButton)
-// let shipSizeLoop = 0
-
-
 
 function gameStartReset() {
     for (let i = 0; i < tiles.length; i++) {
@@ -43,40 +40,35 @@ for (let i = 0; i < tiles.length; i++) {
     tileArray.push(i)
 }
 
-// for (let i = 0; i < playerTiles.length; i++) {
-//     // console.log("playerTilesLoop")
-//     // console.log(i)
-
-//     playerTiles[i].addEventListener("click", function(e) {
-//         console.log("can click this tile")
-//         if (shipSizeLoop < 3) {
-//             console.log(playerTiles[0])
-//             console.log(e.target)
-//             e.target.style["background-color"] = "green";
-//             console.log(shipSizeLoop)
-//             shipSizeLoop = shipSizeLoop + 1
-//             console.log(shipSizeLoop)
-//         }
-//     })
-// }
-
-
-
-
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
-
+function botTurn(randNum) {
+    console.log(randNum)
+    console.log(playerTiles[randNum])
+    if (playerTiles[randNum].style["background-color"] == "green") {
+        playerTiles[randNum].style["background-color"] = "red";
+        // playerTiles[randNum].classList.remove("enemyShip");
+        turnCounter = turnCounter + 1
+    } else if (tiles[randNum].style["background-color"] == "lightblue") {
+        playerTiles[randNum].style["background-color"] = "blue";
+        turnCounter = turnCounter + 1
+    }
+}
 // Here is logic to test whether choice is a hit or miss
 for (let i = 0; i < tiles.length; i++) {
     tiles[i].addEventListener("click", function () {
         if (tiles[i].classList.contains("enemyShip")) {
             tiles[i].style["background-color"] = "red";
             tiles[i].classList.remove("enemyShip");
+            turnCounter = turnCounter + 1
+            botTurn(makeNewRandom())
         } else if (tiles[i].style["background-color"] == "lightblue") {
             tiles[i].style["background-color"] = "blue";
+            turnCounter = turnCounter + 1
+            botTurn(makeNewRandom())
         }
         isShipOnBoard()
     })
@@ -89,12 +81,12 @@ function isShipOnBoard() {
     let trueFalseArray = []
     for (let i = 0; i < tiles.length; i++) {
         trueFalseArray.push(tiles[i].classList.contains("enemyShip"))
-        console.log(trueFalseArray)
+        // console.log(trueFalseArray)
         if (trueFalseArray.includes(true)) {
             break
         }
     }
-    console.log(trueFalseArray)
+    // console.log(trueFalseArray)
     if (trueFalseArray.includes(true)) {
         console.log("still ship left")
     } else { alert("Hooray, you fended off all those dinghies!") }
@@ -326,11 +318,11 @@ function placeVerticalShipBySize(shipSize, originalTileBeingTested) {
         // console.log("words are here")
         // console.log(shipArray)
     }
-    console.log("end of the raod")
+    // console.log("end of the raod")
 }
 
 function isTileTakenTest(tileBeingTested) {
-    console.log("isTileTakenTest is started")
+    // console.log("isTileTakenTest is started")
     // console.log(tileBeingTested)
     // console.log(tiles[tileBeingTested])
     // console.log(tiles[tileBeingTested].style.backgroundColor)

@@ -9,6 +9,8 @@ let startButton = document.getElementsByClassName("startButton")
 let turnCounter = 0
 let tileArray = []
 let newRandom = null
+let winText = "Hooray, you fended off all those dinghies!";
+
 
 function gameStartReset() {
     for (let i = 0; i < tiles.length; i++) {
@@ -66,7 +68,7 @@ function isShipOnBoard() {
     }
     if (trueFalseArray.includes(true)) {
         console.log("still ship left")
-    } else { alert("Hooray, you fended off all those dinghies!") }
+    } else { document.getElementById("here").innerText = winText; }
 }
 
 function randomGrey() {
